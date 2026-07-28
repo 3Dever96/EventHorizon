@@ -1,8 +1,8 @@
 {
-    "name": "EventHorizon",
-    "rootNamespace": "EventHorizon",
+    "name": "EventHorizon.Combat",
+    "rootNamespace": "EventHorizon.Combat",
     "references": [
-        "GUID:94819319dcdd43346adc9089d42f4a3e"
+        "GUID:2045b8f40b3388f4290074952ad9605f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

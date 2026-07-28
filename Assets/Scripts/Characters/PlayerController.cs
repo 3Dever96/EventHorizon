@@ -1,5 +1,5 @@
-using EventHorizon.Managers;
 using UnityEngine;
+using EventHorizon.Managers;
 
 namespace EventHorizon.Characters
 {
