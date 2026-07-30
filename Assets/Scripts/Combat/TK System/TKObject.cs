@@ -44,14 +44,14 @@ namespace EventHorizon.Combat
             }
         }
 
-        public void Throw(Vector3 newDirection, float newSpeed)
+        public void Throw(Vector3 origin, Vector3 newDirection, float newSpeed)
         {
             anchor = null;
             gameObject.layer = 8;
 
-            direction = newDirection;
-            direction.y = 1f;
-            direction = direction.normalized;
+            body.MovePosition(origin + Vector3.up * 1.5f);
+
+            direction = newDirection + Vector3.up * 0.1f;
 
             speed = newSpeed;
 

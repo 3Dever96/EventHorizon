@@ -52,7 +52,7 @@ namespace EventHorizon.Combat
 
                     tk.anchor.isEmpty = true;
 
-                    tk.Throw(transform.position - Camera.main.transform.position, throwSpeed);
+                    tk.Throw(transform.position, transform.forward, throwSpeed);
 
                     canPush = false;
                 }
@@ -67,7 +67,7 @@ namespace EventHorizon.Combat
         private void LateUpdate()
         {
             // Orbit Objects
-            tkParent.Rotate(Vector3.up, 180f * Time.deltaTime);
+            tkParent.Rotate(Vector3.up, 360f * Time.deltaTime);
             tkParent.position = transform.position + Vector3.up;
         }
 
