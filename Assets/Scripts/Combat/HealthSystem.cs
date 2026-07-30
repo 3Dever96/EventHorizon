@@ -16,14 +16,20 @@ namespace EventHorizon.Combat
 
         private Renderer[] avatar;
 
-        public UnityEvent OnDeath;
+        public UnityEvent OnAlive;
         public UnityEvent OnHit;
+        public UnityEvent OnDeath;
 
         private void Start()
         {
             currentHp = maxHp;
 
             avatar = GetComponentsInChildren<Renderer>();
+        }
+
+        private void OnEnable()
+        {
+            OnAlive?.Invoke();
         }
 
         public void TakeDamage(float damage)
