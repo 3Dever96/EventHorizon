@@ -13,7 +13,7 @@ namespace EventHorizon.Combat
 
         private void Update()
         {
-            if (transform.localScale.x < 5f)
+            if (transform.localScale.x < controller.grabRadius)
             {
                 Vector3 addScale = Vector3.one * 2f;
 
@@ -21,7 +21,7 @@ namespace EventHorizon.Combat
             }
             else
             {
-                transform.localScale = Vector3.one * 5f;
+                transform.localScale = Vector3.one * controller.grabRadius;
             }
         }
 
@@ -37,6 +37,7 @@ namespace EventHorizon.Combat
             if (newObject != null)
             {
                 newObject.SetAnchor(controller.GetNextAnchor());
+                controller.AddObject(newObject);
             }
         }
     }

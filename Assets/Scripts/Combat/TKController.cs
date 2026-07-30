@@ -8,24 +8,26 @@ namespace EventHorizon.Combat
     {
         [SerializeField] private GameObject tkField;
         [SerializeField] private Transform tkParent;
-        [SerializeField] private Transform[] anchor;
-        [SerializeField] private bool[] emptyAnchor;
+        private OrbitAnchor[] anchor;
+        [SerializeField] private Transform throwPoint;
 
-        [SerializeField] private float grabRadius;
+        public float grabRadius;
 
-        [SerializeField] private int maxDebris;
+        private int maxDebris;
 
         private bool canPush;
+        private Queue<TKObject> tkObjects = new Queue<TKObject>();
+
+        [SerializeField] private float throwSpeed;
 
         private void Start()
         {
-            anchor = new Transform[tkParent.childCount];
-            emptyAnchor = new bool[tkParent.childCount];
+            anchor = new OrbitAnchor[tkParent.childCount];
+            maxDebris = tkParent.childCount;
 
             for (var i = 0; i < tkParent.childCount; i++)
             {
-                anchor[i] = tkParent.GetChild(i);
-                emptyAnchor[i] = true;
+                anchor[i] = new OrbitAnchor(tkParent.GetChild(i).transform);
             }
         }
 
@@ -42,6 +44,19 @@ namespace EventHorizon.Combat
             }
 
             // Throw Object
+            if (tkObjects.Count > 0)
+            {
+                if (InputHub.Instance.Push && canPush)
+                {
+                    TKObject tk = tkObjects.Dequeue();
+
+                    tk.anchor.isEmpty = true;
+
+                    tk.Throw(transform.position - Camera.main.transform.position, throwSpeed);
+
+                    canPush = false;
+                }
+            }
 
             if (!InputHub.Instance.Push && !canPush)
             {
@@ -56,17 +71,26 @@ namespace EventHorizon.Combat
             tkParent.position = transform.position + Vector3.up;
         }
 
-        public Transform GetNextAnchor()
+        public OrbitAnchor GetNextAnchor()
         {
-            for (var i = 0; i < emptyAnchor.Length; i++)
+            for (var i = 0; i < anchor.Length; i++)
             {
-                if (emptyAnchor[i])
+                if (anchor[i].isEmpty)
                 {
+                    anchor[i].isEmpty = false;
                     return anchor[i];
                 }
             }
 
             return null;
+        }
+
+        public void AddObject(TKObject newObject)
+        {
+            if (tkObjects.Count < maxDebris)
+            {
+                tkObjects.Enqueue(newObject);
+            }
         }
     }
 }
