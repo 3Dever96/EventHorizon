@@ -6,53 +6,53 @@ namespace EventHorizon.Combat
 {
     public class TKController : MonoBehaviour
     {
-        [SerializeField] private SphereCollider tkField;
+        [SerializeField] private GameObject tkField;
         [SerializeField] private Transform tkParent;
+        private OrbitAnchor[] anchor;
+        [SerializeField] private Transform throwPoint;
 
-        [SerializeField] private float grabRadius;
+        public float grabRadius;
 
-        [SerializeField] private int maxDebris;
-        private Queue<IGrabable> debris = new Queue<IGrabable>();
+        private int maxDebris;
 
         private bool canPush;
+        private Queue<TKObject> tkObjects = new Queue<TKObject>();
+
+        [SerializeField] private float throwSpeed;
+
+        private void Start()
+        {
+            anchor = new OrbitAnchor[tkParent.childCount];
+            maxDebris = tkParent.childCount;
+
+            for (var i = 0; i < tkParent.childCount; i++)
+            {
+                anchor[i] = new OrbitAnchor(tkParent.GetChild(i).transform);
+            }
+        }
 
         private void Update()
         {
             // Grab Objects
             if (InputHub.Instance.Grab)
             {
-                if (tkField.radius < grabRadius)
-                {
-                    tkField.radius += 2f * Time.deltaTime;
-                }
-                else
-                {
-                    tkField.radius = grabRadius;
-                }
+                tkField.SetActive(true);
             }
             else
             {
-                if (tkField.radius > 0.01f)
-                {
-                    tkField.radius -= 50f * Time.deltaTime;
-                }
-                else
-                {
-                    tkField.radius = 0f;
-                }
+                tkField.SetActive(false);
             }
 
-            // Orbit Objects
-            tkParent.Rotate(new Vector3(0f, 180f, 0f) * Time.deltaTime);
-
-            // Throw Objects
-            if (debris.Count > 0f)
+            // Throw Object
+            if (tkObjects.Count > 0)
             {
                 if (InputHub.Instance.Push && canPush)
                 {
-                    IGrabable newObject = debris.Dequeue();
+                    TKObject tk = tkObjects.Dequeue();
 
-                    newObject.Throw(Camera.main.transform.forward * 20f + Camera.main.transform.up * 5f);
+                    tk.anchor.isEmpty = true;
+
+                    tk.Throw(transform.position - Camera.main.transform.position, throwSpeed);
 
                     canPush = false;
                 }
@@ -64,20 +64,33 @@ namespace EventHorizon.Combat
             }
         }
 
-        public Transform GetParent()
+        private void LateUpdate()
         {
-            return tkParent;
+            // Orbit Objects
+            tkParent.Rotate(Vector3.up, 180f * Time.deltaTime);
+            tkParent.position = transform.position + Vector3.up;
         }
 
-        public bool AddToQueue(IGrabable grabable)
+        public OrbitAnchor GetNextAnchor()
         {
-            if (debris.Count < maxDebris && !debris.Contains(grabable))
+            for (var i = 0; i < anchor.Length; i++)
             {
-                debris.Enqueue(grabable);
-                return true;
+                if (anchor[i].isEmpty)
+                {
+                    anchor[i].isEmpty = false;
+                    return anchor[i];
+                }
             }
 
-            return false;
+            return null;
+        }
+
+        public void AddObject(TKObject newObject)
+        {
+            if (tkObjects.Count < maxDebris)
+            {
+                tkObjects.Enqueue(newObject);
+            }
         }
     }
 }

@@ -11,16 +11,33 @@ namespace EventHorizon.Combat
             controller = GetComponentInParent<TKController>();
         }
 
+        private void Update()
+        {
+            if (transform.localScale.x < controller.grabRadius)
+            {
+                Vector3 addScale = Vector3.one * 2f;
+
+                transform.localScale += addScale * Time.deltaTime;
+            }
+            else
+            {
+                transform.localScale = Vector3.one * controller.grabRadius;
+            }
+        }
+
+        private void OnDisable()
+        {
+            transform.localScale = Vector3.one;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
-            IGrabable debris = other.GetComponent<IGrabable>();
+            TKObject newObject = other.GetComponent<TKObject>();
 
-            if (debris != null)
+            if (newObject != null)
             {
-                if (controller.AddToQueue(debris))
-                {
-                    debris.Grab(controller.GetParent());
-                }
+                newObject.SetAnchor(controller.GetNextAnchor());
+                controller.AddObject(newObject);
             }
         }
     }
