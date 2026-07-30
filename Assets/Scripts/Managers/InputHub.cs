@@ -50,7 +50,10 @@ namespace EventHorizon.Managers
 
         private void OnDisable()
         {
-            input.onActionTriggered -= OnAction;
+            if (input != null)
+            {
+                input.onActionTriggered -= OnAction;
+            }
         }
 
         public void OnAction(InputAction.CallbackContext context)
