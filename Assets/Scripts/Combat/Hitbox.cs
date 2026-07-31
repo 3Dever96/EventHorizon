@@ -13,7 +13,15 @@ namespace EventHorizon.Combat
 
         private void OnTriggerEnter(Collider other)
         {
-            health.TakeDamage(5f);
+            Attack atk = other.GetComponent<Attack>();
+
+            if (atk != null)
+            {
+                if (atk.Atk != 0f)
+                {
+                    health.TakeDamage(atk.Atk);
+                }
+            }
         }
     }
 }

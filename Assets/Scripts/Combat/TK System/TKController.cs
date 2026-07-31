@@ -51,6 +51,7 @@ namespace EventHorizon.Combat
                     TKObject tk = tkObjects.Dequeue();
 
                     tk.anchor.isEmpty = true;
+                    tk.anchor = null;
 
                     tk.Throw(transform.position, transform.forward, throwSpeed);
 
