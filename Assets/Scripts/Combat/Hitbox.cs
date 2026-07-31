@@ -15,6 +15,11 @@ namespace EventHorizon.Combat
         {
             Attack atk = other.GetComponent<Attack>();
 
+            if (atk == null)
+            {
+                atk = other.GetComponentInParent<Attack>();
+            }
+
             if (atk != null)
             {
                 if (atk.Atk != 0f)

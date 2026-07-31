@@ -7,7 +7,7 @@ namespace EventHorizon.Combat
     public class HealthSystem : MonoBehaviour
     {
         [SerializeField] private float maxHp;
-        private float currentHp;
+        public float currentHp;
 
         [SerializeField] private bool isInvincible;
         [SerializeField] private float hitStopTime;
