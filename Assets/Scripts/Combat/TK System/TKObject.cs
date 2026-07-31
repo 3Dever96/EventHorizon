@@ -2,8 +2,14 @@ using UnityEngine;
 
 namespace EventHorizon.Combat
 {
-    public class TKObject : MonoBehaviour
+    public class TKObject : Attack
     {
+        [SerializeField]
+        private float orbitAtk;
+        [SerializeField]
+        private float thrownAtk;
+
+        [Header("TK Information")]
         private Rigidbody body;
 
         public OrbitAnchor anchor;
@@ -25,10 +31,17 @@ namespace EventHorizon.Combat
             {
                 body.MovePosition(body.position + ((anchor.orbitPoint.position - body.position) * anchorSpeed) * Time.deltaTime);
                 transform.Rotate(new Vector3(45f, 45f, 45f) * Time.deltaTime);
+
+                atk = orbitAtk;
             }
             else if (gameObject.layer == 8)
             {
                 body.MovePosition(body.position + direction * speed * Time.deltaTime);
+                atk = thrownAtk;
+            }
+            else
+            {
+                atk = 0f;
             }
         }
 
@@ -46,7 +59,6 @@ namespace EventHorizon.Combat
 
         public void Throw(Vector3 origin, Vector3 newDirection, float newSpeed)
         {
-            anchor = null;
             gameObject.layer = 8;
 
             body.MovePosition(origin + Vector3.up * 1.5f);
