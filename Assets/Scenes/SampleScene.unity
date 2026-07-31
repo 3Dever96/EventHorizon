@@ -2434,9 +2434,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: EventHorizon.Characters::EventHorizon.Characters.TurretController
   startingAimPosition: {fileID: 45361796}
-  attackCharge: 50
+  attackCharge: 25
   chargeSpeed: 20
-  attackDelay: 0.25
+  attackDelay: 0.1
   resetTime: 1
 --- !u!114 &261314314
 MonoBehaviour:
@@ -6380,9 +6380,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: EventHorizon.Characters::EventHorizon.Characters.TurretController
   startingAimPosition: {fileID: 1336785734}
-  attackCharge: 50
+  attackCharge: 25
   chargeSpeed: 20
-  attackDelay: 0.25
+  attackDelay: 0.1
   resetTime: 1
 --- !u!54 &525959205
 Rigidbody:
@@ -6895,9 +6895,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: EventHorizon.Characters::EventHorizon.Characters.TurretController
   startingAimPosition: {fileID: 1336785734}
-  attackCharge: 50
+  attackCharge: 25
   chargeSpeed: 20
-  attackDelay: 0.25
+  attackDelay: 0.1
   resetTime: 1
 --- !u!54 &621139246
 Rigidbody:
@@ -8341,9 +8341,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: EventHorizon.Characters::EventHorizon.Characters.TurretController
   startingAimPosition: {fileID: 1635664027}
-  attackCharge: 50
+  attackCharge: 25
   chargeSpeed: 20
-  attackDelay: 0.25
+  attackDelay: 0.1
   resetTime: 1
 --- !u!54 &770532393
 Rigidbody:
@@ -8937,9 +8937,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: EventHorizon.Characters::EventHorizon.Characters.TurretController
   startingAimPosition: {fileID: 45361796}
-  attackCharge: 50
+  attackCharge: 25
   chargeSpeed: 20
-  attackDelay: 0.25
+  attackDelay: 0.1
   resetTime: 1
 --- !u!54 &858394359
 Rigidbody:
@@ -19395,9 +19395,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: EventHorizon.Characters::EventHorizon.Characters.TurretController
   startingAimPosition: {fileID: 1174416508}
-  attackCharge: 50
+  attackCharge: 25
   chargeSpeed: 20
-  attackDelay: 0.25
+  attackDelay: 0.1
   resetTime: 1
 --- !u!54 &1810018285
 Rigidbody:
@@ -20048,9 +20048,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: EventHorizon.Characters::EventHorizon.Characters.TurretController
   startingAimPosition: {fileID: 1174416508}
-  attackCharge: 50
+  attackCharge: 25
   chargeSpeed: 20
-  attackDelay: 0.25
+  attackDelay: 0.1
   resetTime: 1
 --- !u!54 &1868192886
 Rigidbody:
@@ -20579,9 +20579,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: EventHorizon.Characters::EventHorizon.Characters.TurretController
   startingAimPosition: {fileID: 1635664027}
-  attackCharge: 50
+  attackCharge: 25
   chargeSpeed: 20
-  attackDelay: 0.25
+  attackDelay: 0.1
   resetTime: 1
 --- !u!54 &1938761048
 Rigidbody:

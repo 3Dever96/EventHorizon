@@ -77,6 +77,7 @@ namespace EventHorizon.Characters
         {
             if (!readyToReset)
             {
+                currentResetTime = 0f;
                 currentDelay += Time.deltaTime;
 
                 if (currentDelay >= attackDelay)
