@@ -25,8 +25,6 @@ namespace EventHorizon.Characters
 
         private bool readyToReset;
 
-        private bool canFindPlayer;
-
         private void FixedUpdate()
         {
             if (target != null)
@@ -46,8 +44,6 @@ namespace EventHorizon.Characters
 
         private void SeekMovement()
         {
-            canFindPlayer = true;
-
             if (!startSeek)
             {
                 transform.LookAt(startingAimPosition.position + Vector3.up);
@@ -66,8 +62,6 @@ namespace EventHorizon.Characters
 
         private void FollowMovement()
         {
-            canFindPlayer = true;
-
             if (target != transform)
             {
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation((target.position + Vector3.up) - transform.position), 10f * Time.deltaTime);
@@ -89,8 +83,6 @@ namespace EventHorizon.Characters
 
         private void AttackState()
         {
-            canFindPlayer = false;
-
             if (!readyToReset)
             {
                 currentDelay += Time.deltaTime;
@@ -121,10 +113,6 @@ namespace EventHorizon.Characters
 
         public void OnFindPlayer(Transform player)
         {
-            if (!canFindPlayer) return;
-
-            print("Triggered");
-
             target = player;
         }
     }

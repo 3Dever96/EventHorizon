@@ -124,7 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 615219918399196460}
   - component: {fileID: 1310747432648467415}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Scan Field
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,6 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40cc31315d0b58d4aad3dd2763e522a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: EventHorizon.Characters::EventHorizon.Characters.EnemyController
+  scanDistance: 15
 --- !u!114 &40560899533277682
 MonoBehaviour:
   m_ObjectHideFlags: 0
