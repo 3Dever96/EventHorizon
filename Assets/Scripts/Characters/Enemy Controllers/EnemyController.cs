@@ -6,6 +6,8 @@ namespace EventHorizon.Characters
     {
         private Transform player;
 
+        [SerializeField] private float scanDistance;
+
         private void Start()
         {
             player = FindAnyObjectByType<PlayerController>().transform;
@@ -13,9 +15,9 @@ namespace EventHorizon.Characters
 
         public void FindPlayer()
         {
-            Ray ray = new Ray(transform.position, (player.position + Vector3.up) - transform.position);
+            Ray ray = new Ray(transform.position, ((player.position + Vector3.up) - transform.position).normalized);
 
-            if (Physics.Raycast(ray, 15f, LayerMask.GetMask("Player")))
+            if (Physics.Raycast(ray, scanDistance, LayerMask.GetMask("Player")))
             {
                 BroadcastMessage("OnFindPlayer", player);
             }
@@ -27,18 +29,12 @@ namespace EventHorizon.Characters
 
         private void OnTriggerStay(Collider other)
         {
-            if (other.gameObject.tag == "Player")
-            {
-                FindPlayer();
-            }
+            FindPlayer();
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.tag == "Player")
-            {
-                FindPlayer();
-            }
+            FindPlayer();
         }
     }
 }
