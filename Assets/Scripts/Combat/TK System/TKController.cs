@@ -11,6 +11,8 @@ namespace EventHorizon.Combat
         private OrbitAnchor[] anchor;
         [SerializeField] private Transform throwPoint;
 
+        private Animator animator;
+
         public float grabRadius;
 
         private int maxDebris;
@@ -22,6 +24,8 @@ namespace EventHorizon.Combat
 
         private void Start()
         {
+            animator = GetComponentInChildren<Animator>();
+
             anchor = new OrbitAnchor[tkParent.childCount];
             maxDebris = tkParent.childCount;
 
@@ -43,11 +47,16 @@ namespace EventHorizon.Combat
                 tkField.SetActive(false);
             }
 
+            animator.SetBool("IsGrabbing", InputHub.Instance.Grab);
+
             // Throw Object
             if (tkObjects.Count > 0)
             {
                 if (InputHub.Instance.Push && canPush)
                 {
+                    animator.Play("Throw");
+                    animator.SetBool("MirrorThrow", Random.value > 0.5f);
+
                     TKObject tk = tkObjects.Dequeue();
 
                     tk.anchor.isEmpty = true;

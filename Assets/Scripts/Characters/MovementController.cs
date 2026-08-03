@@ -6,6 +6,7 @@ namespace EventHorizon.Characters
     public class MovementController : MonoBehaviour
     {
         public CharacterController Controller { get; private set; }
+        public Animator Animator { get; private set; }
 
         public bool IsGrounded { get; protected set; }
         public float CurrentSpeed { get; protected set; }
@@ -16,6 +17,7 @@ namespace EventHorizon.Characters
         protected virtual void Awake()
         {
             Controller = GetComponent<CharacterController>();
+            Animator = GetComponentInChildren<Animator>();
 
             Direction = transform.forward;
         }

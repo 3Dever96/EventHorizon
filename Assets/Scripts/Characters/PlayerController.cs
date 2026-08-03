@@ -18,6 +18,8 @@ namespace EventHorizon.Characters
             // Set IsGrounded
             IsGrounded = VerticalSpeed < 0f && Physics.CheckSphere(transform.position + Vector3.up * 0.9f, 1.1f, LayerMask.GetMask("Solid"));
 
+            Animator.SetBool("IsGrounded", IsGrounded);
+
             // Get Input Direction
             Vector3 direction = Camera.main.transform.right * InputHub.Instance.Move.x + Camera.main.transform.forward * InputHub.Instance.Move.y;
             direction.y = 0f;
@@ -56,6 +58,9 @@ namespace EventHorizon.Characters
                     }
                 }
             }
+
+            Animator.SetFloat("CurrentSpeed", CurrentSpeed);
+            Animator.SetFloat("VerticalSpeed", VerticalSpeed);
 
             // Apply Movement
             Vector3 velocity = CurrentSpeed * Direction;
