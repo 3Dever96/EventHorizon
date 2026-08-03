@@ -13,7 +13,7 @@ namespace EventHorizon.Characters
 
         public void FindPlayer()
         {
-            Ray ray = new Ray(transform.position, transform.forward);
+            Ray ray = new Ray(transform.position, (player.position + Vector3.up) - transform.position);
 
             if (Physics.Raycast(ray, 15f, LayerMask.GetMask("Player")))
             {

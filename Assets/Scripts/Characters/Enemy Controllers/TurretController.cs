@@ -13,15 +13,15 @@ namespace EventHorizon.Characters
         [Header("Charge Information")]
         [SerializeField] private float attackCharge;
         [SerializeField] private float chargeSpeed;
-        private float currentCharge;
+        public float currentCharge;
 
         [Header("Attack Information")]
         [SerializeField] private float attackDelay;
-        private float currentDelay;
+        public float currentDelay;
 
         [Header("Reset Time")]
         [SerializeField] private float resetTime;
-        private float currentResetTime;
+        public float currentResetTime;
 
         private bool readyToReset;
 
@@ -29,18 +29,24 @@ namespace EventHorizon.Characters
 
         private void FixedUpdate()
         {
-            switch (state)
+            if (target != null)
             {
-                case EnemyStates.Seek: SeekMovement(); break;
-                case EnemyStates.Follow: FollowMovement(); break;
-                case EnemyStates.Attack: AttackState();  break;
+                switch (state)
+                {
+                    case EnemyStates.Seek: SeekMovement(); break;
+                    case EnemyStates.Follow: FollowMovement(); break;
+                    case EnemyStates.Attack: AttackState(); break;
+                }
+            }
+            else
+            {
+                target = transform;
             }
         }
 
         private void SeekMovement()
         {
             canFindPlayer = true;
-            readyToReset = false;
 
             if (!startSeek)
             {
@@ -52,17 +58,21 @@ namespace EventHorizon.Characters
                 transform.Rotate(Vector3.up, 90f * Time.deltaTime, Space.World);
             }
 
-            currentCharge = 0f;
-            currentDelay = 0f;
+            if (target != transform)
+            {
+                state = EnemyStates.Follow;
+            }
         }
 
         private void FollowMovement()
         {
-            canFindPlayer = false;
+            canFindPlayer = true;
 
-            if (target != null)
+            if (target != transform)
             {
-                transform.LookAt(target.position + Vector3.up);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation((target.position + Vector3.up) - transform.position), 10f * Time.deltaTime);
+
+                // transform.LookAt(target.position + Vector3.up);
 
                 currentCharge += chargeSpeed * Time.deltaTime;
 
@@ -71,13 +81,18 @@ namespace EventHorizon.Characters
                     state = EnemyStates.Attack;
                 }
             }
+            else
+            {
+                state = EnemyStates.Seek;
+            }
         }
 
         private void AttackState()
         {
+            canFindPlayer = false;
+
             if (!readyToReset)
             {
-                currentResetTime = 0f;
                 currentDelay += Time.deltaTime;
 
                 if (currentDelay >= attackDelay)
@@ -93,7 +108,13 @@ namespace EventHorizon.Characters
 
                 if (currentResetTime >= resetTime)
                 {
-                    state = EnemyStates.Seek;
+                    currentResetTime = 0f;
+                    currentCharge = 0f;
+                    currentDelay = 0f;
+
+                    readyToReset = false;
+
+                    state = EnemyStates.Follow;
                 }
             }
         }
@@ -102,17 +123,9 @@ namespace EventHorizon.Characters
         {
             if (!canFindPlayer) return;
 
-            target = player;
+            print("Triggered");
 
-            if (target != transform)
-            {
-                state = EnemyStates.Follow;
-                startSeek = false;
-            }
-            else
-            {
-                state = EnemyStates.Seek;
-            }
+            target = player;
         }
     }
 }
