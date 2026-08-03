@@ -47,7 +47,7 @@ namespace EventHorizon.Combat
                 tkField.SetActive(false);
             }
 
-            animator.SetBool("IsGrabbing", InputHub.Instance.Grab);
+            animator.SetBool("IsGathering", InputHub.Instance.Grab);
 
             // Throw Object
             if (tkObjects.Count > 0)
