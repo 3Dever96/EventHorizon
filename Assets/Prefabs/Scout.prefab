@@ -783,7 +783,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7714260283003875461}
-  - {fileID: 4939249766158975228}
   - {fileID: 7795905590844933068}
   - {fileID: 418793455041568979}
   m_Father: {fileID: 0}
@@ -853,8 +852,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: EventHorizon.Characters::EventHorizon.Characters.ScoutController
   state: 0
-  altSpeed: 5
-  altAccel: 3
+  altSpeed: 3
+  altAccel: 5
   hurtbox: {fileID: 874987322666378381}
   roamSpeed: 3
   chaseSpeed: 6
@@ -875,7 +874,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40cc31315d0b58d4aad3dd2763e522a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: EventHorizon.Characters::EventHorizon.Characters.EnemyController
-  scanDistance: 7
+  scanDistance: 10
+  viewAngle: 90
 --- !u!114 &751767857134339633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -915,59 +915,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &9033767565064478488
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4939249766158975228}
-  - component: {fileID: 3898859271011281885}
-  m_Layer: 14
-  m_Name: Scan Field
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4939249766158975228
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9033767565064478488}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7045565382974276661}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &3898859271011281885
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9033767565064478488}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9103426019901145144
 GameObject:
   m_ObjectHideFlags: 0

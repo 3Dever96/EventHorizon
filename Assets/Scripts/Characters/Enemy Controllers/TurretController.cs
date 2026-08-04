@@ -4,6 +4,8 @@ namespace EventHorizon.Characters
 {
     public class TurretController : MonoBehaviour
     {
+        private EnemyController enemy;
+
         private EnemyStates state;
         private bool startSeek = false;
         private Transform target;
@@ -24,6 +26,16 @@ namespace EventHorizon.Characters
         public float currentResetTime;
 
         private bool readyToReset;
+
+        private void Start()
+        {
+            enemy = GetComponent<EnemyController>();
+        }
+
+        private void Update()
+        {
+            target = enemy.FindPlayer();
+        }
 
         private void FixedUpdate()
         {
@@ -57,6 +69,7 @@ namespace EventHorizon.Characters
             if (target != transform)
             {
                 state = EnemyStates.Follow;
+                startSeek = false;
             }
         }
 
@@ -65,8 +78,6 @@ namespace EventHorizon.Characters
             if (target != transform)
             {
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation((target.position + Vector3.up) - transform.position), 10f * Time.deltaTime);
-
-                // transform.LookAt(target.position + Vector3.up);
 
                 currentCharge += chargeSpeed * Time.deltaTime;
 
@@ -109,11 +120,6 @@ namespace EventHorizon.Characters
                     state = EnemyStates.Follow;
                 }
             }
-        }
-
-        public void OnFindPlayer(Transform player)
-        {
-            target = player;
         }
     }
 }

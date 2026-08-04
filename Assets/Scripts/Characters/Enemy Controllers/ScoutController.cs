@@ -30,13 +30,15 @@ namespace EventHorizon.Characters
         private float currentDelay;
         private float currentRam;
 
-        private void Start()
+        protected override void Start()
         {
             originPoint = transform.position + Vector3.up;
 
             target = transform;
 
             hurtbox.SetActive(false);
+
+            base.Start();
         }
 
         protected override void SeekMovement()
@@ -104,7 +106,7 @@ namespace EventHorizon.Characters
                     moveDirection = transform.right;
                 }
 
-                FaceDirection(Direction);
+                FaceDirection(Direction, 1000f);
 
                 currentCharge += Time.deltaTime * chargeSpeed;
 
@@ -164,7 +166,7 @@ namespace EventHorizon.Characters
             {
                 if (VerticalSpeed < altSpeed)
                 {
-                    VerticalSpeed += altAccel * Time.deltaTime;
+                    VerticalSpeed += altAccel * 2f * Time.deltaTime;
                 }
                 else
                 {
