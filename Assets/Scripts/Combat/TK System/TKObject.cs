@@ -52,13 +52,18 @@ namespace EventHorizon.Combat
                 gameObject.layer = 7;
 
                 anchor = newAnchor;
+                anchor.isEmpty = false;
 
                 body.useGravity = false;
             }
         }
 
-        public void Throw(Vector3 origin, Vector3 newDirection, float newSpeed)
+        public OrbitAnchor Throw(Vector3 origin, Vector3 newDirection, float newSpeed)
         {
+            OrbitAnchor lastAnchor = anchor;
+            lastAnchor.isEmpty = true;
+            anchor = null;
+
             gameObject.layer = 8;
 
             body.MovePosition(origin + Vector3.up * 1.5f);
@@ -68,6 +73,8 @@ namespace EventHorizon.Combat
             speed = newSpeed;
 
             body.useGravity = true;
+
+            return lastAnchor;
         }
 
         private void OnCollisionEnter(Collision collision)

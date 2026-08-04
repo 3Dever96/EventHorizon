@@ -8,7 +8,6 @@ namespace EventHorizon.Combat
     {
         [SerializeField] private GameObject tkField;
         [SerializeField] private Transform tkParent;
-        private OrbitAnchor[] anchor;
         [SerializeField] private Transform throwPoint;
 
         private Animator animator;
@@ -19,6 +18,7 @@ namespace EventHorizon.Combat
 
         private bool canPush;
         private Queue<TKObject> tkObjects = new Queue<TKObject>();
+        private Queue<OrbitAnchor> anchors = new Queue<OrbitAnchor>();
 
         [SerializeField] private float throwSpeed;
 
@@ -26,12 +26,12 @@ namespace EventHorizon.Combat
         {
             animator = GetComponentInChildren<Animator>();
 
-            anchor = new OrbitAnchor[tkParent.childCount];
+
             maxDebris = tkParent.childCount;
 
-            for (var i = 0; i < tkParent.childCount; i++)
+            for (var i = 0; i < maxDebris; i++)
             {
-                anchor[i] = new OrbitAnchor(tkParent.GetChild(i).transform);
+                anchors.Enqueue(new OrbitAnchor(tkParent.GetChild(i)));
             }
         }
 
@@ -59,10 +59,7 @@ namespace EventHorizon.Combat
 
                     TKObject tk = tkObjects.Dequeue();
 
-                    tk.anchor.isEmpty = true;
-                    tk.anchor = null;
-
-                    tk.Throw(transform.position, transform.forward, throwSpeed);
+                    anchors.Enqueue(tk.Throw(transform.position, transform.forward, throwSpeed));
 
                     canPush = false;
                 }
@@ -83,13 +80,9 @@ namespace EventHorizon.Combat
 
         public OrbitAnchor GetNextAnchor()
         {
-            for (var i = 0; i < anchor.Length; i++)
+            if (anchors.Count > 0)
             {
-                if (anchor[i].isEmpty)
-                {
-                    anchor[i].isEmpty = false;
-                    return anchor[i];
-                }
+                return anchors.Dequeue();
             }
 
             return null;

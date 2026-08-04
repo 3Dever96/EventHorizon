@@ -20,6 +20,8 @@ namespace EventHorizon.Characters
         {
             target = enemy.FindPlayer();
 
+            print(target);
+
             switch (state)
             {
                 case EnemyStates.Seek: SeekMovement(); break;

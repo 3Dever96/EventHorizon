@@ -103,16 +103,7 @@ namespace EventHorizon.Combat
 
                 foreach (Renderer r in avatar)
                 {
-                    Color c = r.materials[0].color;
-
-                    c.a -= 0.5f;
-
-                    if (c.a <= 0f)
-                    {
-                        c.a = 1f;
-                    }
-
-                    r.materials[0].color = c;
+                    r.enabled = !r.enabled;
                 }
 
                 yield return new WaitForSeconds(flashTime);
@@ -120,11 +111,7 @@ namespace EventHorizon.Combat
 
             foreach (Renderer r in avatar)
             {
-                Color c = r.materials[0].color;
-
-                c.a = 1f;
-
-                r.materials[0].color = c;
+                r.enabled = true;
             }
 
             isInvincible = false;

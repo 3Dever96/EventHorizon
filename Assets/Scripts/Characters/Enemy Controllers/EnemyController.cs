@@ -1,3 +1,4 @@
+using Codice.Client.Common.GameUI;
 using UnityEngine;
 
 namespace EventHorizon.Characters
@@ -6,12 +7,18 @@ namespace EventHorizon.Characters
     {
         private Transform player;
 
+        [SerializeField] private Transform lookObject;
         [SerializeField] private float scanDistance;
         [SerializeField] private float viewAngle;
 
         private void Start()
         {
             player = FindAnyObjectByType<PlayerController>().transform;
+
+            if (lookObject == null)
+            {
+                lookObject = transform;
+            }
         }
 
         private bool IsPlayerInRange()
@@ -27,7 +34,7 @@ namespace EventHorizon.Characters
 
             // 3. Normalize vectors for Dot Product comparison
             Vector3 targetDirection = heading.normalized;
-            Vector3 facingDirection = transform.forward;
+            Vector3 facingDirection = lookObject.forward;
 
             // 4. Run the Dot Product math
             float dotResult = Vector3.Dot(facingDirection, targetDirection);
@@ -45,8 +52,8 @@ namespace EventHorizon.Characters
             if (IsPlayerInRange())
             {
                 // STEP 2: Since they are in the cone, shoot a physical ray to check for walls
-                Vector3 targetDirection = ((player.position + Vector3.up) - transform.position).normalized;
-                Ray ray = new Ray(transform.position, targetDirection);
+                Vector3 targetDirection = ((player.position + Vector3.up) - lookObject.position).normalized;
+                Ray ray = new Ray(lookObject.position, targetDirection);
                 RaycastHit hit;
 
                 // Mask includes both the "Player" and your solid "Environment/Wall" layers
