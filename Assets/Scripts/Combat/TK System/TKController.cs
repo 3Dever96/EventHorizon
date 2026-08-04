@@ -95,5 +95,10 @@ namespace EventHorizon.Combat
                 tkObjects.Enqueue(newObject);
             }
         }
+
+        public bool ObjectInQueue(TKObject obj)
+        {
+            return tkObjects.Contains(obj);
+        }
     }
 }
