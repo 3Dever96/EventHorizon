@@ -4,19 +4,24 @@ namespace EventHorizon.Characters
 {
     public class EnemyEntityController : MovementController
     {
+        protected EnemyController enemy;
         [SerializeField] protected EnemyStates state;
 
         protected Transform target;
 
         protected Vector3 moveDirection;
 
-        public virtual void OnFindPlayer(Transform newTarget)
+        protected virtual void Start()
         {
-            target = newTarget;
+            enemy = GetComponent<EnemyController>();
         }
 
         protected override void Update()
         {
+            target = enemy.FindPlayer();
+
+            print(target);
+
             switch (state)
             {
                 case EnemyStates.Seek: SeekMovement(); break;

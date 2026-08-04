@@ -36,8 +36,18 @@ namespace EventHorizon.Combat
 
             if (newObject != null)
             {
-                newObject.SetAnchor(controller.GetNextAnchor());
-                controller.AddObject(newObject);
+                if (!controller.ObjectInQueue(newObject))
+                {
+                    // 1. Ask for the anchor first
+                    OrbitAnchor assignedAnchor = controller.GetNextAnchor();
+
+                    // 2. Only proceed if an anchor was actually available!
+                    if (assignedAnchor != null)
+                    {
+                        newObject.SetAnchor(assignedAnchor);
+                        controller.AddObject(newObject);
+                    }
+                }
             }
         }
     }
