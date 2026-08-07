@@ -28,7 +28,7 @@ namespace EventHorizon
         {
             if (other.tag == "Player" && locks <= 0f)
             {
-                SceneManager.LoadSceneAsync(0);
+                SceneManager.LoadSceneAsync("SCN_StartScreen");
             }
         }
     }
