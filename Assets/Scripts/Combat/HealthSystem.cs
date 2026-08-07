@@ -22,13 +22,12 @@ namespace EventHorizon.Combat
 
         private void Start()
         {
-            currentHp = maxHp;
-
             avatar = GetComponentsInChildren<Renderer>();
         }
 
         private void OnEnable()
         {
+            currentHp = maxHp;
             OnAlive?.Invoke();
         }
 

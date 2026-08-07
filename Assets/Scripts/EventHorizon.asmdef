@@ -2,7 +2,9 @@
     "name": "EventHorizon",
     "rootNamespace": "EventHorizon",
     "references": [
-        "GUID:94819319dcdd43346adc9089d42f4a3e"
+        "GUID:94819319dcdd43346adc9089d42f4a3e",
+        "GUID:2bafac87e7f4b9b418d9448d219b01ab",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

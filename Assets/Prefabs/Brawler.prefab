@@ -887,8 +887,8 @@ MonoBehaviour:
   currentHp: 0
   isInvincible: 0
   hitStopTime: 0.2
-  iFrames: 0.05
-  flashTime: 0.1
+  iFrames: 0
+  flashTime: 0.05
   OnAlive:
     m_PersistentCalls:
       m_Calls: []
